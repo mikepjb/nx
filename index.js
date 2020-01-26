@@ -11,6 +11,9 @@ var projectDirectory = process.cwd() + '/new-site'
 
 if (!fs.existsSync(projectDirectory)) {
   fs.mkdirSync(projectDirectory)
+  if (!fs.existsSync(projectDirectory + '/src')) {
+    fs.mkdirSync(projectDirectory + '/src')
+  }
 }
 
 // Templates {{{
@@ -63,6 +66,22 @@ module.exports = {
 }
 `
 
+var tailwindConfig =
+`module.exports = {
+  theme: {
+    extend: {}
+  },
+  variants: {},
+  plugins: []
+}
+`
+
+var style =
+`@tailwind base;
+@tailwind components;
+@tailwind utilities;
+`
+
 // }}}
 //
 // fs.writeFileSync
@@ -86,10 +105,10 @@ console.log(projectDirectory)
 
 write('package.json', projectDirectory, packageJson)
 write('postcss.config.json', projectDirectory, postcssConfig)
+write('tailwind.config.json', projectDirectory, tailwindConfig)
+write('src/style.css', projectDirectory, tailwindConfig)
 
-// TODO tailwind.config.js
 // TODO src/index.js
-// TODO src/style.css
 // TODO initial yarn dev/build commands
 //  - build must:
 //    - postcss PRODUCTION + gen static files
