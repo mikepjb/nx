@@ -7,4 +7,5 @@ From Latin nexus (“the act of binding together; bond”), from nectō (“bind
 Inside the repo:  
 `npm install -g`
 
+`yarn add global $PWD`
 
