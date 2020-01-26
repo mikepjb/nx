@@ -1,5 +1,6 @@
 {
-  "name": "nx",
+  "name": "@mikepjb/nx",
+  "bin": "./index.js",
   "version": "1.0.0",
   "description": "Quick start new sites",
   "main": "index.js",
@@ -24,6 +25,7 @@
   },
   "homepage": "https://github.com/mikepjb/nx#readme",
   "dependencies": {
+    "@mikepjb/nx": "^1.0.0",
     "chalk": "^3.0.0"
   }
 }

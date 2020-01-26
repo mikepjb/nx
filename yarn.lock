@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@mikepjb/nx@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@mikepjb/nx/-/nx-1.0.0.tgz#9588e518d6988c307099f6d39aad36adca2513e8"
+  integrity sha512-hSg+jn/OTgnqfxRxxiG33TKTtnUtdziHlojxZV910kPFotvm0HlBWYR6yqnWOq7ooKLal/SgRwSh6WIyxQQdwg==
+  dependencies:
+    chalk "^3.0.0"
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
