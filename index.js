@@ -170,4 +170,19 @@ write('src/index.js', projectDirectory, index)
 // TODO resolve invalid DOM element class warning (from babel?)
 //
 // TODO potentially move index.js file to file from var with:
+// TODO logging timestamps for server?
 // console.log(path.dirname('./'))
+//
+// # Live reloading strategies
+//
+// 1. nodemon/live-server
+//    we know it works.. bit manual + uses 2 globally installed utils but.. it works.
+//
+//  2. filewatch and reload?
+//     a. not sure how this looks.. chokidar => reload .js file and => render all the files?
+//
+//  3. Express/chokidar/middleware?
+//     web sockets to the browser and initiates refresh
+//     - SSE (server sent events?)
+//     - websockets? ws npm looks nice.
+//     - WebSocket is provided in firefox.. what is the official name for this?
