@@ -44,6 +44,27 @@ var packageJson =
   }
 }`
 
+var postcssConfig =
+`const purgecss = require('@fullhuman/postcss-purgecss')
+const cssnano = require('cssnano')
+
+module.exports = {
+  plugins: [
+    require('tailwindcss'),
+    process.env.NODE_ENV === 'production' ? require('autoprefixer') : null,
+    process.env.NODE_ENV === 'production'
+      ? cssnano({ preset: 'default' })
+      : null,
+    purgecss({
+      content: ['./layouts/**/*.html', './src/**/*.vue', './src/**/*.jsx'],
+      defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || []
+    })
+  ]
+}
+`
+
+// }}}
+//
 // fs.writeFileSync
 
 // seems to print path of the index.js that is being executed..
@@ -63,6 +84,18 @@ function write(name, dir, content) {
 
 console.log(projectDirectory)
 
-// }}}
-
 write('package.json', projectDirectory, packageJson)
+write('postcss.config.json', projectDirectory, postcssConfig)
+
+// TODO tailwind.config.js
+// TODO src/index.js
+// TODO src/style.css
+// TODO initial yarn dev/build commands
+//  - build must:
+//    - postcss PRODUCTION + gen static files
+// TODO provide basic route object
+// TODO check if yarn is on path
+// TODO run yarn
+// TODO check if git is on path
+// TODO git init
+// TODO write initial commit
