@@ -11,9 +11,10 @@ var projectDirectory = process.cwd() + '/new-site'
 
 if (!fs.existsSync(projectDirectory)) {
   fs.mkdirSync(projectDirectory)
-  if (!fs.existsSync(projectDirectory + '/src')) {
-    fs.mkdirSync(projectDirectory + '/src')
-  }
+}
+
+if (!fs.existsSync(projectDirectory + '/src')) {
+  fs.mkdirSync(projectDirectory + '/src')
 }
 
 // Templates {{{
@@ -44,6 +45,12 @@ var packageJson =
     "@babel/preset-react": "^7.8.3",
     "@babel/runtime": "^7.8.3",
     "react-dom": "^16.12.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
   }
 }`
 
@@ -82,14 +89,55 @@ var style =
 @tailwind utilities;
 `
 
+var index =
+`import React from 'react'
+import ReactDOMServer from 'react-dom/server'
+import Express from 'express'
+import fs from 'fs'
+
+const routes = {
+  '/': 'page',
+  '/lore': 'lore',
+}
+
+const Page = (content) =>
+  \`<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="style.css" media="all">
+    <title></title>
+  </head>
+  <body>
+    \${content}
+  </body>
+  </html>\`
+
+class Index extends React.Component {
+  render() {
+    return <div class="bg-gray-100 text-gray-900 antialiased min-h-screen">
+      <nav class="p-5 bg-gray-900 text-gray-100 flex justify-between text-lg shadow-md">
+        <div>Dawn of a new site</div>
+        <div>some menu items</div>
+      </nav>
+      <div class="m-5">Welcome.</div>
+    </div>
+  }
+}
+
+var staticContent = ReactDOMServer.renderToStaticMarkup(<Index/>)
+
+if (!fs.existsSync('./public')) {
+  fs.mkdirSync('./public')
+}
+fs.writeFileSync('public/index.html', Page(staticContent))
+`
+
 // }}}
-//
-// fs.writeFileSync
 
 // seems to print path of the index.js that is being executed..
 // console.log(path.dirname(__filename))
-
-// console.log(path.dirname('./'))
 
 function write(name, dir, content) {
   var filepath = `${dir}/${name}`
@@ -107,6 +155,7 @@ write('package.json', projectDirectory, packageJson)
 write('postcss.config.json', projectDirectory, postcssConfig)
 write('tailwind.config.json', projectDirectory, tailwindConfig)
 write('src/style.css', projectDirectory, tailwindConfig)
+write('src/index.js', projectDirectory, index)
 
 // TODO src/index.js
 // TODO initial yarn dev/build commands
@@ -118,3 +167,7 @@ write('src/style.css', projectDirectory, tailwindConfig)
 // TODO check if git is on path
 // TODO git init
 // TODO write initial commit
+// TODO resolve invalid DOM element class warning (from babel?)
+//
+// TODO potentially move index.js file to file from var with:
+// console.log(path.dirname('./'))
