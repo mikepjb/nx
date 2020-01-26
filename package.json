@@ -1,0 +1,26 @@
+{
+  "name": "nx",
+  "version": "1.0.0",
+  "description": "Quick start new sites",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikepjb/nx.git"
+  },
+  "keywords": [
+    "quick-start",
+    "web",
+    "site",
+    "app",
+    "react"
+  ],
+  "author": "Michael Bruce",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mikepjb/nx/issues"
+  },
+  "homepage": "https://github.com/mikepjb/nx#readme"
+}
