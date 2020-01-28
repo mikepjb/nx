@@ -152,8 +152,8 @@ function write(name, dir, content) {
 console.log(projectDirectory)
 
 write('package.json', projectDirectory, packageJson)
-write('postcss.config.json', projectDirectory, postcssConfig)
-write('tailwind.config.json', projectDirectory, tailwindConfig)
+write('postcss.config.js', projectDirectory, postcssConfig)
+write('tailwind.config.js', projectDirectory, tailwindConfig)
 write('src/style.css', projectDirectory, style)
 write('src/index.js', projectDirectory, index)
 
