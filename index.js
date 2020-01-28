@@ -154,7 +154,7 @@ console.log(projectDirectory)
 write('package.json', projectDirectory, packageJson)
 write('postcss.config.json', projectDirectory, postcssConfig)
 write('tailwind.config.json', projectDirectory, tailwindConfig)
-write('src/style.css', projectDirectory, tailwindConfig)
+write('src/style.css', projectDirectory, style)
 write('src/index.js', projectDirectory, index)
 
 // TODO src/index.js
