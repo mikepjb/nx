@@ -1,7 +1,7 @@
 {
   "name": "@mikepjb/nx",
   "bin": "./index.js",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Quick start new sites",
   "main": "index.js",
   "scripts": {

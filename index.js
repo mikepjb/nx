@@ -5,12 +5,22 @@ const fs = require('fs')
 const path = require('path')
 const process = require('process')
 
-console.log(chalk.blue('==>') + ' nx: creating new site')
+var args = process.argv.slice(2)
+var projectName = 'new-site'
 
-var projectDirectory = process.cwd() + '/new-site'
+if (args.length != 0) {
+  projectName = args[0]
+}
+
+console.log(chalk.blue('==>') + ' nx: creating new site, ' + projectName)
+
+var projectDirectory = process.cwd() + '/' + projectName
 
 if (!fs.existsSync(projectDirectory)) {
   fs.mkdirSync(projectDirectory)
+} else {
+  console.error(chalk.red('! ') + 'the directory, ' + projectDirectory + ' already exists')
+  process.exit(0)
 }
 
 if (!fs.existsSync(projectDirectory + '/src')) {
