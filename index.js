@@ -68,6 +68,33 @@ var packageJson =
   }
 }`
 
+var init =
+`
+import express from 'express'
+import fs from 'fs'
+import WebSocket from 'ws'
+import chokidar from 'chokidar'
+
+var server = express()
+var reloadingSocket = new WebSocket.Server({port: 7777})
+var fileWatcher = chokidar.watch('./src')
+
+reloadingSocket.on('connection', () => console.log('browser connected'))
+fileWatcher.on('ready', () => {
+  fileWatcher('all', () => {
+    console.log('file changed')
+    Object.keys(require.cache).forEach((id) => {
+      if (/[\/\\]src[\/\\].test(id)) delete require.cache[id]
+      reloadingSocket.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+          client.send('reload!')
+        }
+      })
+    })
+  })
+})
+`
+
 var postcssConfig =
 `const purgecss = require('@fullhuman/postcss-purgecss')
 const cssnano = require('cssnano')
@@ -165,6 +192,7 @@ function write(name, dir, content) {
 
 console.log(projectDirectory)
 
+write('init.js', projectDirectory, init)
 write('package.json', projectDirectory, packageJson)
 write('postcss.config.js', projectDirectory, postcssConfig)
 write('tailwind.config.js', projectDirectory, tailwindConfig)
