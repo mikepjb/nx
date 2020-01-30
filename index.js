@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// TODO make nx init.js build arg console.log/build
+
 const chalk = require('chalk')
 const fs = require('fs')
 const path = require('path')
@@ -36,25 +38,27 @@ var packageJson =
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "babel-node src",
-    "build": "yarn start",
-    "dev": "babel-node src serve"
+    "start": "babel-node init.js",
+    "build": "babel-node init.js build",
+    "dev": "npm start"
   },
   "dependencies": {
-    "@babel/preset-env": "^7.8.3",
-    "@fullhuman/postcss-purgecss": "^2.0.5",
-    "autoprefixer": "^9.7.4",
-    "cssnano": "^4.1.10",
-    "express": "^4.17.1",
-    "react": "^16.12.0",
-    "tailwindcss": "^1.1.4"
-  },
-  "devDependencies": {
     "@babel/core": "^7.8.3",
     "@babel/node": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
     "@babel/preset-react": "^7.8.3",
     "@babel/runtime": "^7.8.3",
+    "@fullhuman/postcss-purgecss": "^2.0.5",
+    "autoprefixer": "^9.7.4",
+    "chokidar": "^3.3.1",
+    "cssnano": "^4.1.10",
+    "express": "^4.17.1",
+    "postcss": "^7.0.26",
+    "postcss-cli": "^7.1.0",
+    "react": "^16.12.0",
     "react-dom": "^16.12.0"
+    "tailwindcss": "^1.1.4"
+    "ws": "^7.2.1"
   },
   "babel": {
     "presets": [
