@@ -56,8 +56,8 @@ var packageJson =
     "postcss": "^7.0.26",
     "postcss-cli": "^7.1.0",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
-    "tailwindcss": "^1.1.4"
+    "react-dom": "^16.12.0",
+    "tailwindcss": "^1.1.4",
     "ws": "^7.2.1"
   },
   "babel": {
@@ -84,7 +84,7 @@ fileWatcher.on('ready', () => {
   fileWatcher('all', () => {
     console.log('file changed')
     Object.keys(require.cache).forEach((id) => {
-      if (/[\/\\]src[\/\\].test(id)) delete require.cache[id]
+      if (/[\/\\\\]src[\/\\\\].test(id)) delete require.cache[id]
       reloadingSocket.clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN) {
           client.send('reload!')
