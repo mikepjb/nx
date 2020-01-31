@@ -2,6 +2,18 @@
 
 // TODO make nx init.js build arg console.log/build
 // TODO ensure build step uses production flag.
+// TODO src/index.js
+// TODO initial yarn dev/build commands
+//  - build must:
+//    - postcss PRODUCTION + gen static files
+// TODO provide basic route object
+// TODO check if git is on path
+// TODO git init
+// TODO write initial commit
+// TODO resolve invalid DOM element class warning (from babel?)
+//
+// TODO potentially move index.js file to file from var with:
+// TODO logging timestamps for server?
 
 const chalk = require('chalk')
 const fs = require('fs')
@@ -155,6 +167,11 @@ var style =
 @tailwind utilities;
 `
 
+var gitignore =
+`node_modules/
+public/
+`
+
 var index =
 `import React from 'react'
 import ReactDOMServer from 'react-dom/server'
@@ -215,9 +232,6 @@ module.exports = (req, res) => res.send(Page(staticContent))
 
 // }}}
 
-// seems to print path of the index.js that is being executed..
-// console.log(path.dirname(__filename))
-
 function write(name, dir, content) {
   var filepath = `${dir}/${name}`
   console.log(chalk.yellow('  ->') + ` writing ${name}`)
@@ -234,35 +248,6 @@ write('init.js', dir, init)
 write('package.json', dir, packageJson)
 write('postcss.config.js', dir, postcssConfig)
 write('tailwind.config.js', dir, tailwindConfig)
+write('.gitignore', dir, gitignore)
 write('src/style.css', dir, style)
 write('src/index.js', dir, index)
-
-// TODO src/index.js
-// TODO initial yarn dev/build commands
-//  - build must:
-//    - postcss PRODUCTION + gen static files
-// TODO provide basic route object
-// TODO check if yarn is on path
-// TODO run yarn
-// TODO check if git is on path
-// TODO git init
-// TODO write initial commit
-// TODO resolve invalid DOM element class warning (from babel?)
-//
-// TODO potentially move index.js file to file from var with:
-// TODO logging timestamps for server?
-// console.log(path.dirname('./'))
-//
-// # Live reloading strategies
-//
-// 1. nodemon/live-server
-//    we know it works.. bit manual + uses 2 globally installed utils but.. it works.
-//
-//  2. filewatch and reload?
-//     a. not sure how this looks.. chokidar => reload .js file and => render all the files?
-//
-//  3. Express/chokidar/middleware?
-//     web sockets to the browser and initiates refresh
-//     - SSE (server sent events?)
-//     - websockets? ws npm looks nice.
-//     - WebSocket is provided in firefox.. what is the official name for this?
