@@ -5,7 +5,8 @@
   "description": "Quick start new sites",
   "main": "index.js",
   "scripts": {
-    "start": "[ ! -d node_modules ] && npm i; node index.js",
+    "prestart": "[ ! -d node_modules ] && npm install --prefer-offline; true",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
