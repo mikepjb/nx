@@ -41,7 +41,7 @@ var packageJson =
     "build:css": "postcss ./src/style.css -o ./public/style.css",
     "dev": "npm start",
     "ensure:css": "[ ! -f ./public/style.css ] && npm run build:css",
-    "ensure:lib": "[ ! -d node_modules ] && npm install --prefer-offline",
+    "ensure:lib": "[ ! -d node_modules ] && npm install --prefer-offline; true",
     "prestart": "npm run ensure:lib; npm run ensure:css",
     "start": "[ ! -d node_modules ] && npm i; babel-node init.js"
   },
@@ -162,9 +162,23 @@ import Express from 'express'
 import fs from 'fs'
 
 const Sun = () =>
- <svg height="24" width="24" class="fill-current text-red-300">
-  <circle cx="20" cy="20" r="10" strokeWidth="8"/>
+ <svg class="inline-block h-5 w-5 fill-current text-gray-400">
+  <circle cx="10" cy="10" r="10" strokeWidth="2"/>
 </svg> 
+
+const reloadScript =
+\`<script>
+  var port = 7777
+  var ws = new WebSocket(\\\`ws://\\\${window.location.hostname}:\\\${port}\\\`)
+  ws.onopen = function() {
+    console.log(\\\`connected to the development server: \\\${window.location.hostname}:\\\${port}\\\`)
+  }
+  ws.onmessage = function() {
+    console.log('refreshing page')
+    ws.close()
+    location.reload()
+  }
+</script>\`
 
 const Page = (content) =>
   \`<!DOCTYPE html>
@@ -177,6 +191,7 @@ const Page = (content) =>
   </head>
   <body>
     \${content}
+    \${reloadScript}
   </body>
   </html>\`
 
@@ -184,7 +199,9 @@ class Index extends React.Component {
   render() {
     return <div class="bg-gray-100 text-gray-900 antialiased min-h-screen">
       <nav class="p-5 bg-gray-900 text-gray-100 flex justify-between text-lg shadow-md">
-        <div><Sun/>Dawn of a new site</div>
+        <div class="flex items-center">
+          <Sun/><span class="ml-2">Dawn of a new site</span>
+        </div>
         <div>some menu items</div>
       </nav>
       <div class="m-5">Welcome.</div>
