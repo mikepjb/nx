@@ -81,7 +81,7 @@ var fileWatcher = chokidar.watch('./src')
 
 reloadingSocket.on('connection', () => console.log('browser connected'))
 fileWatcher.on('ready', () => {
-  fileWatcher('all', () => {
+  fileWatcher.on('all', () => {
     console.log('file changed')
     Object.keys(require.cache).forEach((id) => {
       if (/[\\\/\\\\]src[\\\/\\\\]/.test(id)) delete require.cache[id]
@@ -93,6 +93,10 @@ fileWatcher.on('ready', () => {
     })
   })
 })
+
+// server.get('/', (req, res, next) => require('./src/index')(req, res, next))
+server.get('/', (req, res, next) => res.json({"status": "started"}))
+server.listen(8080, '0.0.0.0', () => console.log('server started on 8080'))
 `
 
 var postcssConfig =
