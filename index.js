@@ -38,7 +38,7 @@ var packageJson =
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "babel-node init.js",
+    "start": "[ ! -d node_modules ] && npm i; babel-node init.js",
     "build": "babel-node init.js build",
     "dev": "npm start"
   },
