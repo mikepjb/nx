@@ -19,6 +19,7 @@ const chalk = require('chalk')
 const fs = require('fs')
 const path = require('path')
 const process = require('process')
+const { exec } = require('child_process')
 
 var args = process.argv.slice(2)
 var projectName = 'new-site'
@@ -253,3 +254,18 @@ write('tailwind.config.js', dir, tailwindConfig)
 write('.gitignore', dir, gitignore)
 write('src/style.css', dir, style)
 write('src/index.js', dir, index)
+
+exec('git rev-parse 2> /dev/null', (gerr) => {
+  if (gerr !== null) {
+    exec(`command -v git && cd ${dir} && git init`, (err) => {
+      if (err) {
+        console.error(chalk.red('   !') + ' could not initialise git, ' + err)
+      } else {
+        console.log(chalk.yellow('  ->') + ' initialised git repository')
+        exec(`cd ${dir} && git add --all && git commit -m 'Initial Commit'`)
+      }
+    })
+  } else {
+    console.log(chalk.blue('   ?') + ' inside a git repo, skipping creation')
+  }
+})
