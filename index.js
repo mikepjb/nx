@@ -45,9 +45,11 @@ if (!fs.existsSync(dir + '/src')) fs.mkdirSync(dir + '/src')
 var packageJson =
 `{
   "name": "${projectName}",
-  "version": "1.0.0",
+  "description": "website for ${projectName}",
+  "version": "0.0.1",
   "main": "index.js",
-  "license": "MIT",
+  "license": "UNLICENSED",
+  "private": "true",
   "scripts": {
     "build": "babel-node init.js build",
     "build:css": "postcss ./src/style.css -o ./public/style.css",
