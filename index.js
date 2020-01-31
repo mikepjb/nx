@@ -84,7 +84,7 @@ fileWatcher.on('ready', () => {
   fileWatcher('all', () => {
     console.log('file changed')
     Object.keys(require.cache).forEach((id) => {
-      if (/[\/\\\\]src[\/\\\\].test(id)) delete require.cache[id]
+      if (/[\\\/\\\\]src[\\\/\\\\]/.test(id)) delete require.cache[id]
       reloadingSocket.clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN) {
           client.send('reload!')
