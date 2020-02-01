@@ -55,7 +55,7 @@ var packageJson =
     "build": "babel-node init.js build",
     "build:css": "postcss ./src/style.css -o ./public/style.css",
     "dev": "npm start",
-    "ensure:css": "[ ! -f ./public/style.css ] && npm run build:css",
+    "ensure:css": "[ ! -f ./public/style.css ] && npm run build:css; true",
     "ensure:lib": "[ ! -d node_modules ] && npm install --prefer-offline; true",
     "prestart": "npm run ensure:lib; npm run ensure:css",
     "start": "[ ! -d node_modules ] && npm i; babel-node init.js"
